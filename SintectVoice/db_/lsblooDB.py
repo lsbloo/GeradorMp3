@@ -46,10 +46,10 @@ class Querys(object):
         query='''insert into says (data,frases) values(?,?)'''
         retorn = self.verifcD(data,frase)
         if retorn:
-            print("pass!")
+            #print("pass!")
             pass
         else:
-            print("nao pass!")
+            #print("nao pass!")
             self.createConnection()
             cursor=conexao.cursor()
             dados=[(data,frase)]

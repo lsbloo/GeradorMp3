@@ -1,0 +1,8 @@
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/oi osvaldo tudo bem?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/oi tudo sim e voce?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/que legal?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/massa?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/gostei?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/hmm?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/oks?.mp3
+/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/bom?.mp3

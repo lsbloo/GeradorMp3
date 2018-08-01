@@ -4,7 +4,7 @@
 
 from gtts import gTTS
 # execute mp3 imports
-import subprocess as s
+
 # importando classes de subdiretorios
 import sys
 sys.path.append("../db_")
@@ -13,6 +13,16 @@ from lsblooDB import Querys
 ## manipular arquivos e diretorios
 import os
 import os.path
+import subprocess as s
+
+# ARQUIVO DE CONFIG - PARA OS PATHS DO MP3 LOG
+global DIR
+leitura = 'r'
+escrita = 'w'
+configTXT='pathMP3.txt'
+
+
+DIR= open(configTXT,escrita)
 
 def criarArquivosMP3(frases_VETOR):
     #print(frases)
@@ -25,17 +35,22 @@ def criarArquivosMP3(frases_VETOR):
     extensao='mp3'
     aux=''
     zin=''
+    kin=''
     extensoes=[]
     for i in frases_VETOR:            
         criarArquivomp3 = gTTS(i,lang="pt")
         aux += i
         aux += '.'
         aux += extensao
-        verifc = os.path.isfile("/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/%s"%(aux))
+        kin+="/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/"
+        kin+=aux
+        verifc = os.path.isfile(kin)
+        extensoes.append(kin)
+        kin=''
         #print(aux)
         if verifc:
             aux=''
-            print("pass! arq!")
+            #print("pass! arq!")
             pass
         else:
             zin += '/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/'
@@ -56,31 +71,57 @@ def extrairFrasesDB(Query):
     depois povoa o vetor com os dados do katia.
     '''
     #a.create('''create table says (data text,frases text) ''')
-    a.insertD("01/08/2018","bom?")
+    Query.insertD("01/08/2018","bom?")
     frases =[]
-    a.resultset()
+    Query.resultset()
     vetor = []
-    vetor = a.resultset()
+    vetor = Query.resultset()
 
     for i in vetor:
         frases.append(i[1])
         #print(i[1])
     return frases
 def createArqVoice(arquivomp3Audio):
+    '''
+     Criar um arquivo txt que armazena o caminho do arquivo MP3. para a funcao KAtiaSAYS
+    '''
+    
 
     try:
         meuPlayer='mplayer'
         #print(extensoes[6])
         for i in arquivomp3Audio:
-            s.call([meuPlayer,i])
+            DIR.write("%s\n"%(i))
+        DIR.close()
+
     except IndexError:
         pass
+
+def loadPatchTXT():
+    """
+    Carrega Arquivos do DIR
+    """
+    try:
+        
+        list_of_path=[]
+        DIR= open(configTXT,leitura)
+        for linha in DIR.readlines():
+            list_of_path.append(linha)
+            DIR.close()
+        if len(list_of_path)!=0:
+            return list_of_path
+    except:
+        print("Error!!")
+
+    finally:
+        print("Funcao Executada!")
+
     
     
+    
 
+def mainVoice(Query):
+    frases=extrairFrasesDB(Query)
+    vetor=criarArquivosMP3(frases)
+    createArqVoice(vetor)
 
-
-a = Querys()
-frases=extrairFrasesDB(a)
-vetor=criarArquivosMP3(frases)
-createArqVoice(vetor)
