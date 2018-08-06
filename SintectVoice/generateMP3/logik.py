@@ -11,11 +11,12 @@ from lsblooDB import Querys
 #Preciso dos dados do banco
 # preciso dos arquivos MP3
 # preciso da entrada do usuario
-import subprocess as s
+import subprocess as execute
+
 import time
 
 meuPlayer='mplayer'
-
+ASKME='Não te entendo!'
 
 
 def executeMainC():
@@ -31,33 +32,32 @@ def say(say1):
     Carrega os paths do TXT
     e utiliza o modulo os para carregar o sist de arqs
     """
-    eqo=''
-    vetor_paths = loadPatchTXT()
-    eqo += say1
-    eqo += ".mp3"
-    #print(vetor_paths)
-    print(eqo)
-    x=0
-    cont = 0
-    for k in vetor_paths:
-        helpi.append(os.path.basename(k))
-    
-    for x in range(len(helpi)):
-        print(helpi[x].strip())
-        if helpi[x].strip() == eqo.strip():
-            print("XD!")
-            cont = x
-            break
-    if cont!=0:
-        print("oks!")
-        saida=str(vetor_paths[cont])
+    if say1==ASKME:
+        print("Não consigo te entender!")
+    else:
         
-        print(saida)
-        #DEU DOIDERA AQUI 
-        s.call([meuPlayer,'/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/bom?.mp3'])
+        #print(say1)
+        eqo=''
+        vetor_paths = loadPatchTXT()
+        #print(vetor_paths)
+        #print(vetor_paths)
+        eqo += say1
+        eqo += ".mp3"
+        #print(vetor_paths)
+        #print(eqo)
+        x=0
+        cont = 0
+        for k in vetor_paths:
+            helpi.append(os.path.basename(k))
         
-        
-            
+        for x in range(len(helpi)):
+            #print(helpi[x].strip())
+            if helpi[x].strip() == eqo.strip():
+                #print("XD!")
+                cont = x
+                #print(vetor_paths[cont])
+                execute.call([meuPlayer,vetor_paths[cont]])
+                break    
     
        
 
@@ -66,17 +66,23 @@ def logik(vetor,inpt):
     #algumas strings e com base nisso faça a katia executar o mp3
     
     #print(vetor_paths)
+    #print(inpt)
     helpi=[]
     helpi.append(inpt)
     for k in vetor:
         if k == helpi[0]:
             return k
             break
+        else:
+            askme=True
+    if askme:
+        return ASKME
+            
     
             
     
 def testInputText():
-    inpt=str(input("Digite o texto: "))
+    inpt=str(input("Me fale algo: "))
     return inpt
 def xnFF():
     my_result=[]

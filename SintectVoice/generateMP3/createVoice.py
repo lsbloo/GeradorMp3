@@ -30,9 +30,13 @@ def criarArquivosMP3(frases_VETOR):
     Cria os arquivos MP3, com as frases armazenadas no katia.
     é necessario pegar o caminho relativo de outra forma pois o os.path.expanduser()
     so me retorna /home/osvaldoairon/arq.mp3;
+
+    caminho relativo == os.getcwd()
     
     '''
-    extensao='mp3'
+    extensao='.mp3'
+    caminho_relativo = os.getcwd()
+    caminho_relativo += '/generates/'
     aux=''
     zin=''
     kin=''
@@ -40,20 +44,17 @@ def criarArquivosMP3(frases_VETOR):
     for i in frases_VETOR:            
         criarArquivomp3 = gTTS(i,lang="pt")
         aux += i
-        aux += '.'
         aux += extensao
-        kin+="/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/"
+        kin+=caminho_relativo
         kin+=aux
         verifc = os.path.isfile(kin)
         extensoes.append(kin)
         kin=''
-        #print(aux)
         if verifc:
             aux=''
-            #print("pass! arq!")
             pass
         else:
-            zin += '/home/osvaldoairon/Área de Trabalho/SintectVoice/generateMP3/generates/'
+            zin += caminho_relativo
             zin += aux
             criarArquivomp3.save(zin)
             #print(aux)
@@ -79,7 +80,6 @@ def extrairFrasesDB(Query):
 
     for i in vetor:
         frases.append(i[1])
-        #print(i[1])
     return frases
 def createArqVoice(arquivomp3Audio):
     '''
@@ -101,6 +101,7 @@ def loadPatchTXT():
     """
     Carrega Arquivos do DIR
     """
+    aux=[]
     try:
         
         list_of_path=[]
@@ -109,7 +110,12 @@ def loadPatchTXT():
             list_of_path.append(linha)
             DIR.close()
         if len(list_of_path)!=0:
-            return list_of_path
+            for x in list_of_path:
+                k = x
+                #print(k[2:])
+                aux.append(k[:-1])
+        return aux
+                
     except:
         print("Error!!")
 
